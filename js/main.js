@@ -1,42 +1,73 @@
-$('#telefone').mascara('(00) 00000-0000', {
-    placeholder: '(DDD) 12345-6789'
-})
+$(document).ready(function () {
+    // Inicializa o carrossel
+    $('#carousel-imagens').slick({
+        autoplay: true,
+        arrows: false
+    });
 
-$('#cpf').mascara('000.000.000-00', {
-    placeholder: '123.456.789-00'
-})
+    // Máscaras para os campos de entrada
+    $('#telefone').mask('(00) 00000-0000', {
+        placeholder: '(DDD) 12345-6789'
+    });
 
-$('#cep').mascara('00000-000', {
-    placeholder: '012345-678'
-})
+    $('#cpf').mask('000.000.000-00', {
+        placeholder: '123.456.789-00'
+    });
 
-$('form').validate({
-    rules: {
-        nome: {
-            requerido: true
+    $('#cep').mask('00000-000', {
+        placeholder: '01234-567'
+    });
+
+    // Validação do formulário
+    $('form').validate({
+        rules: {
+            nome: {
+                required: true
+            },
+            email: {
+                required: true,
+                email: true
+            },
+            telefone: {
+                required: true
+            },
+            cpf: {
+                required: true
+            },
+            endereco: {
+                required: true
+            },
+            cep: {
+                required: true
+            }
         },
-        email: {
-            requerido: true,
-            email: true
+        messages: {
+            nome: {
+                required: "Por favor, insira seu nome completo"
+            },
+            email: {
+                required: "Por favor, insira seu email",
+                email: "Por favor, insira um email válido"
+            },
+            telefone: {
+                required: "Por favor, insira seu telefone"
+            },
+            cpf: {
+                required: "Por favor, insira seu CPF"
+            },
+            endereco: {
+                required: "Por favor, insira seu endereço completo"
+            },
+            cep: {
+                required: "Por favor, insira seu CEP"
+            }
         },
-        telefone: {
-            requerido: true
+        submitHandler: function (form) {
+            alert("Sua requisição foi enviada para análise, parabéns pela aquisição!");
+            form.reset();
         },
-        endereco: {
-            requerido: true
-        },
-        cep: {
-            requerido: true
-        },
-        cpf: {
-            requerido: true
-        },
-    },
-    submitHandler: function (form) {
-        alert("Sua requisição foi enviada para análise, parabéns pela aquisição!");
-        form.reset();
-    },
-    invalidHandler: function (form, validator) {
-        alert("Por favor, preencha os campos para prosseguir com a compra!");
-    }
-})
+        invalidHandler: function (event, validator) {
+            alert("Por favor, preencha todos os campos corretamente para prosseguir com a compra!");
+        }
+    });
+});
